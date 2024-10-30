@@ -5,8 +5,11 @@ import Login from "./components/auth/Login.jsx";
 import Signup from "./components/auth/Signup.jsx";
 import ForgotPassword from "./components/auth/ForgotPassword.jsx";
 import ResetPassword from "./components/auth/ResetPassword.jsx";
+import CustomerManagement from "./components/customer-management/CustomerManagement.jsx";
+
 import "./index.css";
 import Error from "./components/Error.jsx";
+
 // import App from './App.jsx'
 
 const router = createBrowserRouter([
@@ -33,6 +36,11 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <Signup />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/CustomerManagement",
+    element: <CustomerManagement />,
     errorElement: <Error />,
   },
 ]);

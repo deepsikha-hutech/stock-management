@@ -1,0 +1,192 @@
+
+
+.main {
+    background-color: rgb(200, 229, 245);
+    display: flex;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+  }
+  
+  .sidebar-panel {
+    width: 250px;
+    background-color: #f0f4f8;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .sidebar-panel-img {
+    
+    /* font-size: 1rem; */
+    justify-content: left;
+    width:30%;
+    height: auto;
+    display: flex;
+    /* margin: 0 auto 20px auto; */
+  }
+  .sidebar-panel-img img {
+    width: 30%;
+    height: auto;
+  }
+  .sidebar-panel-h5 {
+    color: green;
+    font-size: 0.5rem;
+    /* margin-top: 5px; */
+    text-align: left;
+  }
+    
+/* 
+  .sidebar-panel-name {
+    font-size: 1rem;
+    margin-top: 10px;
+    text-align: left;
+  } */
+
+  /* .sidebar-panel-email {
+    font-size: 1rem;
+    margin-top: 5px;
+    text-align: center;
+  } */
+
+  /* .sidebar-panel-phone {
+    font-size: 1rem;
+    margin-top: 5px;
+    text-align: center;
+  } */
+
+  /* .sidebar-panel-address {
+    font-size: 1rem;
+    margin-top: 5px;
+    text-align: center;
+  } */
+
+  /* .sidebar-panel-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  } */
+
+        
+        
+   
+        
+      
+  
+  
+  /* .sidebar-panel h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  } */
+  
+  .sidebar-panel ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar-panel li {
+    margin: 10px 0;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  .customer-management-panel {
+    flex: 1;
+    align-content: flex-start;
+    padding: 20px;
+    background-color: #ffffff;
+    overflow-y: auto;
+  }
+  .customer-management-panel h2 {
+
+    
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .customer-management-panel header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .customer-management-panel header button {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    
+    border-radius: 4px;
+    cursor: pointer; 
+    justify-content: flex-end;
+    align-items: right;
+  }
+    
+    .import-button {
+        margin-left: 10px;
+        padding: 5px 10px;
+        /* background-color: #4CAF50; */
+       
+        /* border: none; */
+        /* border-radius: 4px; */
+        /* cursor: pointer;  */
+        /* justify-content: flex-end; */
+      } 
+    
+      .export-button {
+        margin-left: 10px;
+        padding: 5px 10px;
+        /* background-color: #4CAF50; */
+        /* color: white; */
+        /* border: none;
+        border-radius: 4px;
+        cursor: pointer; 
+        justify-content: space-between; */
+      }  
+  
+  
+  .stats {
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+  }
+ /* .actions button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer; 
+    justify-content: space-between;
+  }  */
+
+
+ 
+    
+    
+  
+  /* .actions button:hover {
+    background-color: #45a049;
+  } */
+  
+  .customer-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+  
+  .customer-table th,
+  .customer-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  .status.active {
+    color: green;
+  }
+  
+  .status.inactive {
+    color: red;
+  }
+  
