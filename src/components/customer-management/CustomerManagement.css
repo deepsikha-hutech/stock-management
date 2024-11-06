@@ -1,4 +1,6 @@
-/* .root{
+
+
+.root{
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -7,7 +9,7 @@
     width: 100%;
     background-color: aliceblue;
     background-size: cover;
-} */
+}
 
 .main{
     background-color: white;
@@ -34,8 +36,16 @@
   
     margin-left: 20px;
 } */
-.sidebar-panel {
-    /* width: 100%; */
+/* .container{ 
+  height: 100vh;
+  background-color: aliceblue;
+  background-size: cover;
+  display: flex;
+  
+
+} */
+/* .sidebar-panel {
+    
     height: 100vh;
     background-color: aliceblue;
     padding: 20px;
@@ -43,8 +53,8 @@
     display: flex;
     flex-direction: column;
    
-    /* overflow-y: auto; */
-  }
+   
+  } */
  
 .sidebar-panel-img {
     
@@ -58,42 +68,126 @@
   .sidebar-panel-img img {
     width: 30%;
     height: auto;
-  }
-  .sidebar-panel-h5 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  .sidebar-panel ul {
-    list-style: none;
-    padding: 0;
+    /* display: flex; */
   }
   
-  .sidebar-panel li {
-    margin: 10px 0;
-    cursor: pointer;
-    color: #333;
-  } 
 
-  
-  
-  .logout {
-    /* background: none;
-    border: none;
-    
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: auto; */
+   /* Main Sidebar Container */
+.sidebar-panel {
+  width: 220px;
+  background-color: aliceblue;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow: hidden;
+}
+
+/* Logo and Title Styling */
+.sidebar-panel-img {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sidebar-panel-img img {
+  width: 30px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.sidebar-panel-img h5 {
+  font-size: 15px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+  white-space: nowrap; /* Prevents text from being cut off */
+}
+
+/* Menu Items Styling */
+.ant-menu {
+  background-color: transparent;
+  border-right: none;
+}
+
+.ant-menu-item {
+  font-size: 15px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease;
+  padding: 10px 15px;
+  border-radius: 8px;
+  white-space: nowrap; /* Prevents text from being cut off */
+}
+
+.ant-menu-item:hover {
+  background-color: #e6f7ff;
+}
+
+.ant-menu-item-selected {
+  background-color: #e6f7ff;
+  color: #1890ff;
+}
+
+.ant-menu-item-icon {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+/* Logout Button Styling */
+.logout-button {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 10px;
-  /* background-color: #dc3545; */
-  /* color: white; */
-  border: solid 1px gray;
-  border-radius: 5px;
+  font-size: 16px;
+  color: #333;
+  background-color: transparent;
+  border: none;
   cursor: pointer;
-    
-  }
+  transition: color 0.3s ease;
+}
+
+.logout-button:hover {
+  color: #1890ff;
+}
 
 
- 
+.toggle-btn {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background-color: #ffffff;
+  color: #333;
+  border: 1px solid #d9d9d9;
+  padding: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+}
 
-  
+.toggle-btn:hover {
+  background-color: #f0f0f0;
+}
+
+:where(.css-dev-only-do-not-override-ni1kz0).ant-layout, :where(.css-dev-only-do-not-override-ni1kz0).ant-layout * {
+  box-sizing: content-box;
+}
+
+:where(.css-dev-only-do-not-override-ni1kz0).ant-menu-inline .ant-menu-item, :where(.css-dev-only-do-not-override-ni1kz0).ant-menu-vertical .ant-menu-item, :where(.css-dev-only-do-not-override-ni1kz0).ant-menu-inline .ant-menu-submenu-title, :where(.css-dev-only-do-not-override-ni1kz0).ant-menu-vertical .ant-menu-submenu-title {
+  height: 40px;
+  line-height: 40px;
+  padding-inline: 16px;
+  overflow: hidden;
+  /* text-overflow: ellipsis; */
+  margin-inline: 4px;
+  margin-block: 4px;
+  width: calc(100% - 8px);
+}
+
+:where(.css-dev-only-do-not-override-ni1kz0)[class^="ant-menu"] [class^="ant-menu"], :where(.css-dev-only-do-not-override-ni1kz0)[class*=" ant-menu"] [class^="ant-menu"], :where(.css-dev-only-do-not-override-ni1kz0)[class^="ant-menu"] [class*=" ant-menu"], :where(.css-dev-only-do-not-override-ni1kz0)[class*=" ant-menu"] [class*=" ant-menu"] {
+  box-sizing: content-box;
+}

@@ -6,6 +6,7 @@ import Signup from "./components/auth/Signup.jsx";
 import ForgotPassword from "./components/auth/ForgotPassword.jsx";
 import ResetPassword from "./components/auth/ResetPassword.jsx";
 import CustomerManagement from "./components/customer-management/CustomerManagement.jsx";
+// import SideBar from "./components/customer-management/SideBar.jsx";
 
 import "./index.css";
 import Error from "./components/Error.jsx";
@@ -43,6 +44,11 @@ const router = createBrowserRouter([
     element: <CustomerManagement />,
     errorElement: <Error />,
   },
+  // {
+  //   path: "/sideBar",
+  //   element: <SideBar />,
+  //   errorElement: <Error />,
+  // },
 ]);
 
 createRoot(document.getElementById("root")).render(
