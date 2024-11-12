@@ -20,6 +20,7 @@ const CustomerList = ({ customers }) => {
   const [params, setParams] = useState({ page: 1, limit: 30, search: null });
   const [modalOpenMode, setModalOpenMode] = useState(null);
   const [isEditCustomerModalOpen, setIsEditCustomerModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentCustomer, setCurrentCustomer] = useState(null);
   const [editForm] = Form.useForm();
   const [addForm] = Form.useForm();
@@ -46,6 +47,10 @@ const CustomerList = ({ customers }) => {
   //     mode: prevState.mode === "add" ? "edit" : "add",
   //   }));
   // };
+
+  const handleCancel = () => {
+    setModalOpenMode(false);
+  };
 
   const showAddCustomerModal = () => {
     setModalOpenMode("add");
@@ -125,20 +130,6 @@ const CustomerList = ({ customers }) => {
     setModalOpenMode(null);
   };
 
-  // const handleDeleteCustomer = (id) => {
-  //   setModalOpenMode(null);
-  //   Modal.confirm({
-  //     title: "Do you want to delete this customer?",
-  //     onOk: () => {
-  //       setCustomerData((prevData) =>
-  //         prevData.filter((customer) => customer.id !== id)
-  //       );
-  //       setModalOpenMode(null);
-  //       message.success("Customer deleted");
-  //     },
-  //   });
-  // };
-
   const handleDeleteCustomer = (id) => {
     setCustomerData((prevCustomers) =>
       prevCustomers.filter((customer) => customer.id !== id)
@@ -146,13 +137,6 @@ const CustomerList = ({ customers }) => {
     alert("Do u want to delete?");
     message.success("Customer deleted successfully");
   };
-
-  // const handleEditCustomer = (index) => {
-  //   const updatedCustomer = customer.map((customer, i) =>
-  //     i === editIndex ? { ...customer, customer } : customer
-  //   );
-  //   setcustomer(updatedCustomer);
-  // };
 
   function getCustomerList(params = { page: 1, limit: 10, search: null }) {
     //call get customer API
@@ -369,7 +353,7 @@ const CustomerList = ({ customers }) => {
                 : "Add Customer"
             }
             open={modalOpenMode}
-            onCancel={handleEditCustomerCancel}
+            onCancel={handleCancel}
             footer={[null]}
           >
             {/* edit */}

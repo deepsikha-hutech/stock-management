@@ -7,6 +7,8 @@ import {
   DatePicker,
   Button,
   message,
+  Row,
+  Col,
 } from "antd";
 import CustomerList from "./CustomerList";
 
@@ -51,72 +53,130 @@ const AddEditCustomer = ({
   }, [mode, customer]);
 
   return (
-    <div>
+    <div className="form-container">
       <Form form={form} onFinish={handleFormSubmit}>
-        <Form.Item
-          label="CustomerId"
-          name="id"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input disabled={mode == "edit"} />
-        </Form.Item>
-        {JSON.stringify({ mode, customer })}
-        <Form.Item
-          label="Name"
-          name="name"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+        <Row style={{ padding: "10px" }}>
+          <Col xs={24} sm={18} md={12} lg={24}>
+            <Form.Item
+              label="Customer Id"
+              colon={true}
+              wrapperCol={{ sm: { offset: 2 } }}
+              name="id"
+              rules={[
+                { required: true, message: "Please enter your customerId" },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
 
-        <Form.Item label="Status" valuePropName="checked" name="status">
-          <Switch
-            checkedChildren="Active"
-            unCheckedChildren="Inactive"
-            // checked={status === "Active"}
-          ></Switch>
-        </Form.Item>
+          <Col xs={24} sm={18} md={12} lg={24}>
+            <Form.Item
+              label=" Name"
+              colon={true}
+              wrapperCol={{ sm: { offset: 4 } }}
+              name="name"
+              rules={[{ required: true, message: "Please enter your name" }]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
 
-        <Form.Item label="Risk Profile" name="risk">
-          <Input />
-        </Form.Item>
+          <Col xs={24} sm={18} md={12} lg={24}>
+            <Form.Item
+              label="Status"
+              colon={true}
+              wrapperCol={{ sm: { offset: 5 } }}
+              name="status"
+            >
+              <Switch
+                checkedChildren="Active"
+                unCheckedChildren="Inactive"
+                // checked={status === "Active"}
+              ></Switch>
+            </Form.Item>
+          </Col>
 
-        <Form.Item label="Portfolio Value" name="portfolioValue">
-          <InputNumber />
-        </Form.Item>
+          <Col xs={24} sm={18} md={12} lg={24}>
+            <Form.Item
+              label="Risk Profile"
+              colon={true}
+              wrapperCol={{ sm: { offset: 3 } }}
+              name="risk"
+            >
+              <Input />
+            </Form.Item>
+          </Col>
 
-        <Form.Item label="SIP Amount" name="sip">
-          <InputNumber />
-        </Form.Item>
+          <Col xs={24} sm={18} md={12} lg={24}>
+            <Form.Item
+              label="Portfolio Value"
+              colon={true}
+              wrapperCol={{ sm: { offset: 2 } }}
+              name="portfolioValue"
+            >
+              <InputNumber />
+            </Form.Item>
+          </Col>
 
-        <Form.Item label="Adhoc Inv" name="adhoc">
-          <InputNumber />
-        </Form.Item>
+          <Col xs={24} sm={18} md={12} lg={24}>
+            <Form.Item
+              label="SIP Amount"
+              colon={true}
+              wrapperCol={{ sm: { offset: 3 } }}
+              name="sip"
+            >
+              <InputNumber />
+            </Form.Item>
+          </Col>
 
-        <Form.Item label="Model Portfolio" name="model">
-          <Input />
-        </Form.Item>
+          <Col xs={24} sm={18} md={12} lg={24}>
+            <Form.Item
+              label="Adhoc Inv"
+              colon={true}
+              wrapperCol={{ sm: { offset: 4 } }}
+              name="adhoc"
+            >
+              <InputNumber />
+            </Form.Item>
+          </Col>
 
-        <Form.Item label="Thematic Inv" name="thematic">
-          <Input />
-        </Form.Item>
+          <Col xs={24} sm={18} md={12} lg={24}>
+            <Form.Item
+              label="Model Portfolio"
+              colon={true}
+              wrapperCol={{ sm: { offset: 2 } }}
+              name="model"
+            >
+              <Input />
+            </Form.Item>
+          </Col>
 
-        <Form.Item label="Last Updated" name="lastUpdated">
-          <Input />
-        </Form.Item>
-        <Button htmlType="submit">{mode === "add" ? "Save" : "Update"}</Button>
+          <Col xs={24} sm={18} md={12} lg={24}>
+            <Form.Item
+              label="Thematic Inv"
+              colon={true}
+              wrapperCol={{ sm: { offset: 3 } }}
+              name="thematic"
+            >
+              <Input />
+            </Form.Item>
+          </Col>
 
-        {/* {customer?.map((customer, index) => (
-          <div key={(customer, index)}></div>
-        ))} */}
+          <Col xs={24} sm={18} md={12} lg={24}>
+            <Form.Item
+              label="Last Updated"
+              colon={true}
+              wrapperCol={{ sm: { offset: 3 } }}
+              name="lastUpdated"
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+          <Button htmlType="submit">
+            {mode === "add" ? "Save" : "Update"}
+          </Button>
+        </Row>
       </Form>
     </div>
   );
