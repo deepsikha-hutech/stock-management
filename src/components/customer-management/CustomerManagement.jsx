@@ -16,40 +16,14 @@ import {
   ShopOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-
-  //   LeftOutlined,
+  LeftOutlined,
 } from "@ant-design/icons";
 
 import logo from "../images/logo.svg";
 import CustomerStats from "./CustomerStats";
+import CustomerList from "./CustomerList";
 
 function CustomerManagement() {
-  const [customerData, setCustomerData] = useState(
-    {
-      id: "MB001",
-      name: "Himanshi",
-      status: "Active",
-      risk: "Balanced",
-      portfolioValue: "₹2,94,930",
-      sip: "₹2,94,930",
-      anchor: "₹2,94,930",
-      model: "Balanced",
-      thematic: "EV Vehicles",
-      lastUpdated: "10.08.2023",
-    },
-    {
-      id: "MB002",
-      name: "Angira Banman",
-      status: "Active",
-      risk: "Conservative",
-      portfolioValue: "₹2,94,930",
-      sip: "₹2,94,930",
-      anchor: "₹2,94,930",
-      model: "Balanced",
-      thematic: "EV Vehicles",
-      lastUpdated: "10.08.2023",
-    }
-  );
   const { Sider } = Layout;
 
   const [collapsed, setCollapsed] = useState(false);
@@ -134,7 +108,6 @@ function CustomerManagement() {
             </Button>
 
             <Button
-              // type="primary"
               onClick={toggleSidebar}
               className="toggle-btn"
               style={{
@@ -150,16 +123,35 @@ function CustomerManagement() {
         </Layout>
       </div>
 
-      <div className="right-panel">
-        {/* <div className="header-1"> */}
-        {/* <h2> */}
-        {/* <LeftOutlined size={5} /> */}
-        {/* <TeamOutlined size={2} /> */}
-        {/* Customer Management */}
-        {/* </h2> */}
+      <div className="main-header" style={{ overflow: "scroll" }}>
+        <div
+          style={{
+            padding: "1rem",
+            borderBottom: "1px solid lightgray",
+            width: "100%",
+          }}
+        >
+          <h2>
+            <LeftOutlined size={5} />
+            <TeamOutlined size={2} /> Customer Management
+          </h2>
+        </div>
         {/* </div> */}
-        <CustomerStats />
-        {/* <CustomerList /> */}
+        <br></br>
+        <div className="header">
+          <h1>Customer Management</h1>
+          <div className="header-actions">
+            <button>Import</button>
+            <button>Export</button>
+          </div>
+        </div>
+        <div />
+        <div className="right-panel">
+          <CustomerStats />
+          <div className="customer-table">
+            <CustomerList />
+          </div>
+        </div>
       </div>
     </div>
   );
