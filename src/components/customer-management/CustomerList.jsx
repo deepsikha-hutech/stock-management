@@ -26,27 +26,12 @@ const CustomerList = ({ customers }) => {
   const [addForm] = Form.useForm();
 
   const [form] = Form.useForm();
-  // const [data, setData] = useState(originData);
-  // const [editingKey, setEditingKey] = useState('');
-
-  // useEffect(() => {
-  //   const { customerList, totalCustomer } = getCustomerList(params);
-  //   setCustomerCount(totalCustomer);
-  //   setCustomerData(customerList);
-  // }, []);
 
   useEffect(() => {
     const { customerList, totalCustomer } = getCustomerList(params);
     setCustomerCount(totalCustomer);
     setCustomerData(customerList);
   }, [params]);
-
-  // const handleModeChange = () => {
-  //   setState((prevState) => ({
-  //     ...prevState,
-  //     mode: prevState.mode === "add" ? "edit" : "add",
-  //   }));
-  // };
 
   const handleCancel = () => {
     setModalOpenMode(false);
@@ -84,12 +69,6 @@ const CustomerList = ({ customers }) => {
     // setIsEditCustomerModalOpen(true);
   };
 
-  const handleEditCustomerCancel = () => {
-    setCurrentCustomer(null);
-
-    // setIsEditCustomerModalOpen(false);
-  };
-
   const handleEditCustomerSubmit = () => {
     editForm
       .validateFields()
@@ -118,14 +97,7 @@ const CustomerList = ({ customers }) => {
 
   const handleEditCustomer = (updatedCustomer) => {
     alert("edit");
-    // setCustomerData((values) =>
-    //   customer.map((customer) =>
-    //     customer.id === updatedCustomer.id ? updatedCustomer : customer
-    //   )
-    // );
 
-    // message.success("Customer updated ");
-    // setIsModalOpen(false);
     setCurrentCustomer(null);
     setModalOpenMode(null);
   };

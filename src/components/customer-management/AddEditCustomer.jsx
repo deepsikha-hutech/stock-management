@@ -92,7 +92,6 @@ const AddEditCustomer = ({
               <Switch
                 checkedChildren="Active"
                 unCheckedChildren="Inactive"
-                // checked={status === "Active"}
               ></Switch>
             </Form.Item>
           </Col>
