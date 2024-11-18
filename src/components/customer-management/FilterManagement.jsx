@@ -5,13 +5,10 @@ function CustomerManagement() {
     <div
       style={{
         display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        alignItems: "justify",
       }}
     >
-      <div style={{ fontSize: "2rem", fontWeight: 600 }}>
-        This is customer management tab
-      </div>
+      <h1>This is filter management tab</h1>
     </div>
   );
 }

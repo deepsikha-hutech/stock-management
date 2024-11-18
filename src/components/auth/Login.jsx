@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import logo from "../images/logo.svg";
 
 function Login() {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
 
   function login(e) {
     e.preventDefault();
@@ -11,6 +13,7 @@ function Login() {
     const formProps = Object.fromEntries(formData);
     console.log(formProps);
     alert("login success");
+    navigate("/dashboard", { state: { oko: "oijikbjhikjn" } });
   }
 
   return (
