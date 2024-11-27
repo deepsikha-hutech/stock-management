@@ -11,6 +11,9 @@ import {
   Col,
 } from "antd";
 import CustomerList from "./CustomerList";
+import variable from "../../assets/variables";
+import Cookie from "js-cookies";
+import axios from "axios";
 
 const AddEditCustomer = ({
   mode,
@@ -21,29 +24,6 @@ const AddEditCustomer = ({
 }) => {
   const [form] = Form.useForm();
 
-  const handleFormSubmit = (values) => {
-    console.log({ values });
-    if (mode === "add") {
-      //call add customer api wid values
-      //   message.success("customer added");
-      //   const newCustomer = {
-      //     ...values,
-      //     id: `MB00${currentCustomer.length + 1}`,
-      //   };
-      //   form.resetFields();
-      onAddCustomerSuccess && onAddCustomerSuccess(values);
-    } else if (mode === "edit") {
-      //call update customer api wid values
-      //   message.success("customer updated");
-      //   const updatedData = CustomerList.map((customer) =>
-      //     customer.id === currentCustomer.id
-      //       ? { ...customer, ...values }
-      //       : customer
-      //   );
-      onEditCustomerSuccess && onEditCustomerSuccess(values);
-    }
-  };
-
   useEffect(() => {
     if (mode === "edit" && customer) {
       form.setFieldsValue(customer);
@@ -51,6 +31,51 @@ const AddEditCustomer = ({
       form.resetFields();
     }
   }, [mode, customer]);
+
+  const handleFormSubmit = async (values) => {
+    console.log({ values });
+    const token = Cookie.getItem("accessToken");
+
+    if (mode === "add") {
+      try {
+        const { data } = await axios.post(
+          ` ${variable?.STOCK_MANAGEMENT_API_URL}/api/v1/stock`,
+          values,
+          { headers: { Authorization: token } }
+        );
+
+        if (data?.stockinfo?._id) {
+          alert("stock added");
+
+          form.resetFields();
+          onAddCustomerSuccess(data.stockinfo, "add");
+        } else {
+          alert(" Failed to add stock, try again");
+        }
+      } catch (error) {
+        console.log(error);
+        alert("add Failed, try again");
+      }
+    } else if (mode === "edit") {
+      try {
+        const { data } = await axios.put(
+          ` ${variable?.STOCK_MANAGEMENT_API_URL}/api/v1/stock/${customer?._id}`,
+          values,
+          { headers: { Authorization: token } }
+        );
+
+        if (data?.stockinfo?._id) {
+          form.resetFields();
+          onEditCustomerSuccess(data.stockinfo, "edit");
+        } else {
+          alert(" Failed to update stock, try again");
+        }
+      } catch (error) {
+        console.log(error);
+        alert("something went wrong, try again");
+      }
+    }
+  };
 
   return (
     <div className="form-container">
@@ -61,7 +86,7 @@ const AddEditCustomer = ({
               label="Customer Id"
               colon={true}
               wrapperCol={{ sm: { offset: 2 } }}
-              name="id"
+              name="customerid"
               rules={[
                 { required: true, message: "Please enter your customerId" },
               ]}
@@ -101,7 +126,7 @@ const AddEditCustomer = ({
               label="Risk Profile"
               colon={true}
               wrapperCol={{ sm: { offset: 3 } }}
-              name="risk"
+              name="riskprofile"
             >
               <Input />
             </Form.Item>
@@ -112,7 +137,7 @@ const AddEditCustomer = ({
               label="Portfolio Value"
               colon={true}
               wrapperCol={{ sm: { offset: 2 } }}
-              name="portfolioValue"
+              name="portfoliovalue"
             >
               <InputNumber />
             </Form.Item>
@@ -123,7 +148,7 @@ const AddEditCustomer = ({
               label="SIP Amount"
               colon={true}
               wrapperCol={{ sm: { offset: 3 } }}
-              name="sip"
+              name="sipamount"
             >
               <InputNumber />
             </Form.Item>
@@ -134,7 +159,7 @@ const AddEditCustomer = ({
               label="Adhoc Inv"
               colon={true}
               wrapperCol={{ sm: { offset: 4 } }}
-              name="adhoc"
+              name="adhocinv"
             >
               <InputNumber />
             </Form.Item>
@@ -145,7 +170,7 @@ const AddEditCustomer = ({
               label="Model Portfolio"
               colon={true}
               wrapperCol={{ sm: { offset: 2 } }}
-              name="model"
+              name="modelportfolio"
             >
               <Input />
             </Form.Item>
@@ -156,7 +181,7 @@ const AddEditCustomer = ({
               label="Thematic Inv"
               colon={true}
               wrapperCol={{ sm: { offset: 3 } }}
-              name="thematic"
+              name="thematicinv"
             >
               <Input />
             </Form.Item>
@@ -167,7 +192,7 @@ const AddEditCustomer = ({
               label="Last Updated"
               colon={true}
               wrapperCol={{ sm: { offset: 3 } }}
-              name="lastUpdated"
+              name="lastupdated"
             >
               <Input />
             </Form.Item>

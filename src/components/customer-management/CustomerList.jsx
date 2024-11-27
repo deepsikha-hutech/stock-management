@@ -13,25 +13,17 @@ import {
 } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import AddEditCustomer from "./AddEditCustomer";
+import variable from "../../assets/variables";
+import axios from "axios";
+import Cookie from "js-cookies";
 
 const CustomerList = ({ customers }) => {
   const [customerData, setCustomerData] = useState([]);
   const [customerCount, setCustomerCount] = useState(0);
-  const [params, setParams] = useState({ page: 1, limit: 30, search: null });
+  const [params, setParams] = useState({ page: 1, limit: 10, search: null });
+
   const [modalOpenMode, setModalOpenMode] = useState(null);
-  const [isEditCustomerModalOpen, setIsEditCustomerModalOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentCustomer, setCurrentCustomer] = useState(null);
-  const [editForm] = Form.useForm();
-  const [addForm] = Form.useForm();
-
-  const [form] = Form.useForm();
-
-  useEffect(() => {
-    const { customerList, totalCustomer } = getCustomerList(params);
-    setCustomerCount(totalCustomer);
-    setCustomerData(customerList);
-  }, [params]);
 
   const handleCancel = () => {
     setModalOpenMode(false);
@@ -41,27 +33,6 @@ const CustomerList = ({ customers }) => {
     setModalOpenMode("add");
   };
 
-  const handleAddCustomerCancel = () => {
-    setModalOpenMode(null);
-  };
-
-  const handleAddCustomerSubmit = () => {
-    addForm
-      .validateFields()
-      .then((values) => {
-        const newCustomer = { ...values, id: `MB00${customerData.length + 1}` };
-        setCustomerData([...customerData, newCustomer]);
-        setModalOpenMode(false);
-        addForm.resetFields();
-        alert("customer added");
-        message.success("Customer added");
-      })
-      .catch((error) => {
-        message.error("Customer Add fail");
-        console.error("Add fail", error);
-      });
-  };
-
   const showEditCustomerModal = (customer) => {
     setCurrentCustomer(customer);
     setModalOpenMode("edit");
@@ -69,98 +40,58 @@ const CustomerList = ({ customers }) => {
     // setIsEditCustomerModalOpen(true);
   };
 
-  const handleEditCustomerSubmit = () => {
-    editForm
-      .validateFields()
-      .then((values) => {
-        //
-        const updatedData = customerData.map((customer) =>
-          customer.id === currentCustomer.id
-            ? { ...customer, ...values }
-            : customer
-        );
-        setCustomerData(updatedData);
-        setIsEditCustomerModalOpen(false);
-        alert("customer updated");
-        message.success("Customer updated ");
-      })
-      .catch((error) => {
-        message.error("Customer Update fail.");
-        console.error("Update fail", error);
-      });
-  };
-
-  const handleAddCustomer = (newCustomer) => {
+  const handleAddCustomer = () => {
     setCurrentCustomer(null);
     setModalOpenMode(null);
   };
 
-  const handleEditCustomer = (updatedCustomer) => {
+  const handleEditCustomer = () => {
     alert("edit");
 
     setCurrentCustomer(null);
     setModalOpenMode(null);
   };
 
-  const handleDeleteCustomer = (id) => {
-    setCustomerData((prevCustomers) =>
-      prevCustomers.filter((customer) => customer.id !== id)
-    );
-    alert("Do u want to delete?");
-    message.success("Customer deleted successfully");
-  };
-
-  function getCustomerList(params = { page: 1, limit: 10, search: null }) {
-    //call get customer API
-    const customerList = [
-      {
-        id: "MB001",
-        name: "Himanshi",
-        status: "Active",
-        risk: "Balanced",
-        portfolioValue: "₹2,94,930",
-        sip: "₹2,94,930",
-        adhoc: "₹2,94,930",
-        model: "Balanced",
-        thematic: "EV Vehicles",
-        lastUpdated: "10.08.2023",
-        action: "Edit",
-      },
-      {
-        id: "MB002",
-        name: "Angira Banman",
-        status: "Active",
-        risk: "Conservative",
-        portfolioValue: "₹2,94,930",
-        sip: "₹2,94,930",
-        adhoc: "₹2,94,930",
-        model: "Balanced",
-        thematic: "EV Vehicles",
-        lastUpdated: "10.08.2023",
-        action: "Edit",
-      },
-    ];
-    return {
-      customerList,
-      totalCustomer: 56,
-      page: params.page,
-      limit: params.limit,
-    };
-  }
-
-  const onSearch = () => {
-    const results = customerData.filter(
-      (customer) =>
-        customer.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        customer.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredCustomers(results);
-    if (results.length > 0) {
-      alert("Success! ");
-    } else {
-      alert("No results ");
+  const handleDeleteCustomer = async (id) => {
+    try {
+      const token = Cookie.getItem("accessToken");
+      const { data } = await axios.delete(
+        `${variable?.STOCK_MANAGEMENT_API_URL}/api/v1/stock/${id}`,
+        { headers: { Authorization: token } }
+      );
+      if (data?.stockinfo?._id) {
+        if (customerCount - 1 == (params?.page - 1) * params?.limit) {
+          setParams({ ...params, page: params.page - 1 });
+        } else getStock();
+      } else {
+        alert("failed to delete");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("something went wrong");
     }
   };
+
+  useEffect(() => {
+    getStock();
+  }, [params]);
+
+  async function getStock() {
+    try {
+      const token = Cookie.getItem("accessToken");
+      // alert("token");
+
+      const { data } = await axios.get(
+        `${variable?.STOCK_MANAGEMENT_API_URL}/api/v1/stock`,
+        { params, headers: { Authorization: token } }
+      );
+      setCustomerData(data?.stocks);
+      setCustomerCount(data?.totalCount);
+    } catch (error) {
+      console.log(error);
+      alert("something went wrong");
+    }
+  }
 
   const handleSearchChange = (e) => {
     setParams({ ...params, search: e.target.value });
@@ -175,8 +106,8 @@ const CustomerList = ({ customers }) => {
   const columns = [
     {
       title: "Customer ID",
-      dataIndex: "id",
-      key: "id",
+      dataIndex: "customerid",
+      key: "customerid",
     },
     {
       title: "Name",
@@ -201,8 +132,8 @@ const CustomerList = ({ customers }) => {
     },
     {
       title: "Risk Profile",
-      key: "risk",
-      dataIndex: "risk",
+      key: "riskprofile",
+      dataIndex: "riskprofile",
       render: (risk) => {
         let color = "green";
         if (risk === "Conservative") color = "orange";
@@ -214,35 +145,35 @@ const CustomerList = ({ customers }) => {
     },
     {
       title: "Portfolio Value",
-      key: "portfolioValue",
-      dataIndex: "portfolioValue",
+      key: "portfoliovalue",
+      dataIndex: "portfoliovalue",
     },
     {
       title: "SIP Amount",
-      key: "sip",
-      dataIndex: "sip",
+      key: "sipamount",
+      dataIndex: "sipamount",
     },
     {
       title: "Adhoc Inv",
-      key: "adhoc",
-      dataIndex: "adhoc",
+      key: "adhocinv",
+      dataIndex: "adhocinv",
     },
     {
       title: "Model Portfolio",
-      key: "model",
-      dataIndex: "model",
+      key: "modelportfolio",
+      dataIndex: "modelportfolio",
       render: (text) => <a>{text}</a>,
     },
     {
       title: "Thematic Inv",
-      key: "thematic",
-      dataIndex: "thematic",
+      key: "thematicinv",
+      dataIndex: "thematicinv",
       render: (text) => <a>{text}</a>,
     },
     {
       title: "Last Updated",
-      key: "lastUpdated",
-      dataIndex: "lastUpdated",
+      key: "lastupdated",
+      dataIndex: "lastupdated",
     },
     {
       title: "Action",
@@ -254,7 +185,7 @@ const CustomerList = ({ customers }) => {
           <EditOutlined onClick={() => showEditCustomerModal(customerData)} />
 
           <DeleteOutlined
-            onClick={() => handleDeleteCustomer(customerData.id)}
+            onClick={() => handleDeleteCustomer(customerData._id)}
           />
         </>
       ),

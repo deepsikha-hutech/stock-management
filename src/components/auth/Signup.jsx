@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./Signup.css";
 import logo from "../images/logo.svg";
+import axios from "axios";
+import variable from "../../assets/variables";
 
 function Signup() {
   const [loginData, setLoginData] = useState({
@@ -10,8 +12,26 @@ function Signup() {
   });
   const [person, setPerson] = useState([]);
 
-  const handleSubmit = (e) => {
-    console.log("Login data:", loginData);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // console.log("Login data:", loginData);
+    try {
+      const { data } = await axios.post(
+        `${variable?.STOCK_MANAGEMENT_API_URL}/api/v1/auth/signup`,
+        loginData
+      );
+
+      console.log({ data });
+      if (data?.user) {
+        alert("signup success, redirecting to login");
+        window.location.href = "http://localhost:5173/login";
+      } else {
+        alert("Signup Failed, try again");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Signup Failed, try again");
+    }
   };
 
   return (
@@ -36,8 +56,9 @@ function Signup() {
           <form onSubmit={handleSubmit}>
             <div className="flex-start-col input-container-3">
               <input
+                autocomplete="off"
                 placeholder="Name"
-                type="name"
+                type="text"
                 value={loginData.name}
                 onChange={(e) =>
                   setLoginData({ ...loginData, name: e.target.value })
@@ -47,6 +68,7 @@ function Signup() {
 
             <div className="flex-start-col input-container-1">
               <input
+                autocomplete="off"
                 placeholder="Email"
                 type="email"
                 value={loginData.email}
@@ -58,6 +80,7 @@ function Signup() {
 
             <div className="flex-start-col input-container-2">
               <input
+                autocomplete="off"
                 placeholder="Password"
                 type="password"
                 value={loginData.password}

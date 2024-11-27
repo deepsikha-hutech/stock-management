@@ -1,4 +1,5 @@
 import React from "react";
+import CustomerList from "./CustomerList";
 
 function CustomerManagement() {
   return (
@@ -9,8 +10,8 @@ function CustomerManagement() {
         alignItems: "center",
       }}
     >
-      <div style={{ fontSize: "2rem", fontWeight: 600 }}>
-        This is customer management tab
+      <div style={{ margin: "2rem", fontSize: "2rem", fontWeight: 600 }}>
+        <CustomerList />
       </div>
     </div>
   );
