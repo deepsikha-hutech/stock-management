@@ -12,7 +12,6 @@ import {
   ShopOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  LeftOutlined,
   DashboardOutlined,
 } from "@ant-design/icons";
 
@@ -40,7 +39,7 @@ function LeftSider() {
     }[location.pathname] || "1";
 
   return (
-    <Layout>
+    <Layout style={{ display: "flex", flexDirection: "row" }}>
       <Sider
         activeKey="1"
         width={230}
@@ -54,6 +53,7 @@ function LeftSider() {
           boxShadow: "none",
           border: "none",
           overflow: "hidden",
+          // position: "fixed",
         }}
       >
         <div className="sidebar-panel">
@@ -62,43 +62,55 @@ function LeftSider() {
             {!collapsed && <h5>Winsight</h5>}
           </div>
 
-          <Menu selectedKeys={[currentKey]}>
-            <Menu.Item key="1" icon={<DashboardOutlined />}>
-              <Link to={"/dashboard"} state={{ ok: "ijijojolk" }}>
-                Dashboard
-              </Link>
-            </Menu.Item>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <Menu selectedKeys={[currentKey]}>
+              <Menu.Item key="1" icon={<DashboardOutlined />}>
+                <Link to={"/dashboard"} state={{ ok: "ijijojolk" }}>
+                  Dashboard
+                </Link>
+              </Menu.Item>
 
-            <Menu.Item key="2" icon={<TeamOutlined />}>
-              <Link to={"/customer-management"}>Customer Management</Link>
-            </Menu.Item>
+              <Menu.Item key="2" icon={<TeamOutlined />}>
+                <Link to={"/customer-management"}>Customer Management</Link>
+              </Menu.Item>
 
-            <Menu.Item key="3" icon={<SlidersOutlined />}>
-              <Link to={"/stock-outlisting"}>Stock Outlisting</Link>
-            </Menu.Item>
+              <Menu.Item key="3" icon={<SlidersOutlined />}>
+                <Link to={"/stock-outlisting"}>Stock Outlisting</Link>
+              </Menu.Item>
 
-            <Menu.Item key="4" icon={<ShopOutlined />}>
-              <Link to={"/portfolio-management"}>Portfolio Management</Link>
-            </Menu.Item>
+              <Menu.Item key="4" icon={<ShopOutlined />}>
+                <Link to={"/portfolio-management"}>Portfolio Management</Link>
+              </Menu.Item>
 
-            <Menu.Item key="5" icon={<PieChartOutlined />}>
-              <Link to={"/thematic-investment"}>Thematic Investments</Link>
-            </Menu.Item>
+              <Menu.Item key="5" icon={<PieChartOutlined />}>
+                <Link to={"/thematic-investment"}>Thematic Investments</Link>
+              </Menu.Item>
 
-            <Menu.Item key="6" icon={<FilterOutlined />}>
-              <Link to={"/filter-management"}>Filter Management</Link>
-            </Menu.Item>
-          </Menu>
+              <Menu.Item key="6" icon={<FilterOutlined />}>
+                <Link to={"/filter-management"}>Filter Management</Link>
+              </Menu.Item>
+            </Menu>
+          </div>
         </div>
 
-        <Button
-          onClick={navigateToLogin}
-          type="text"
-          className="logout-button"
-          icon={<LogoutOutlined />}
+        <br></br>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            paddingTop: "70px",
+          }}
         >
-          {collapsed ? null : "Log Out"}
-        </Button>
+          <Button
+            onClick={navigateToLogin}
+            type="text"
+            className="logout-button"
+            icon={<LogoutOutlined />}
+          >
+            {collapsed ? null : "Log Out"}
+          </Button>
+        </div>
 
         <Button
           onClick={toggleSidebar}

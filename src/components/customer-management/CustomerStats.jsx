@@ -49,10 +49,12 @@ function CustomerStats() {
         borderRadius: "1rem",
         height: "8rem",
         backgroundColor: "white",
+        backgroundSize: "cover",
         display: "flex",
         alignItems: "center",
         margin: "20px",
-        // justifyContent: "space-evenly",
+        justifyContent: "space-between",
+        // position: "fixed",
       }}
     >
       <div className="stats-container">

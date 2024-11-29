@@ -5,15 +5,14 @@
 
 
 
-.main-header {
+/* .main-header {
   margin: 20px;
-  /* color: green; */
   border: 1px solid lightgray;
   border-radius: 10px;
   background: #f7f7f7;
 
 
-}
+} */
 
 .main-header h2 {
   font-size: medium;
@@ -65,8 +64,9 @@
 .stats-container {
   /* border-spacing: 60px; */
   display: flex;
+  flex-direction: row;
   background-size: cover;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   color: green;
   /* gap: 20px; */

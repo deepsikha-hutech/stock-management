@@ -90,7 +90,7 @@ function Login() {
                 <a href="/signup">Create Account</a> {""}
               </div>
               <div className="login-forgot-password">
-                <a href="/forgotPassword">Forgot Password?</a>
+                <a href="/forgot-password">Forgot Password?</a>
               </div>
             </div>
 

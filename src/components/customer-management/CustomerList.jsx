@@ -1,27 +1,19 @@
-import React, { Fragment, useEffect, useState } from "react";
-import {
-  Space,
-  Table,
-  Tag,
-  Switch,
-  Input,
-  Modal,
-  Button,
-  Form,
-  InputNumber,
-  DatePicker,
-} from "antd";
+import React, { Fragment, useEffect, useState, useCallback } from "react";
+import { Space, Table, Tag, Switch, Input, Modal, Button } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import AddEditCustomer from "./AddEditCustomer";
 import variable from "../../assets/variables";
 import axios from "axios";
 import Cookie from "js-cookies";
+import _, { delay } from "lodash";
+import { useNavigate } from "react-router-dom";
+import debounce from "lodash/debounce";
 
 const CustomerList = ({ customers }) => {
   const [customerData, setCustomerData] = useState([]);
   const [customerCount, setCustomerCount] = useState(0);
   const [params, setParams] = useState({ page: 1, limit: 10, search: null });
-
+  const navigate = useNavigate();
   const [modalOpenMode, setModalOpenMode] = useState(null);
   const [currentCustomer, setCurrentCustomer] = useState(null);
 
@@ -46,10 +38,9 @@ const CustomerList = ({ customers }) => {
   };
 
   const handleEditCustomer = () => {
-    alert("edit");
-
     setCurrentCustomer(null);
     setModalOpenMode(null);
+    getStock(params);
   };
 
   const handleDeleteCustomer = async (id) => {
@@ -62,7 +53,7 @@ const CustomerList = ({ customers }) => {
       if (data?.stockinfo?._id) {
         if (customerCount - 1 == (params?.page - 1) * params?.limit) {
           setParams({ ...params, page: params.page - 1 });
-        } else getStock();
+        } else getStock(params);
       } else {
         alert("failed to delete");
       }
@@ -72,15 +63,9 @@ const CustomerList = ({ customers }) => {
     }
   };
 
-  useEffect(() => {
-    getStock();
-  }, [params]);
-
-  async function getStock() {
+  async function getStock(params) {
     try {
       const token = Cookie.getItem("accessToken");
-      // alert("token");
-
       const { data } = await axios.get(
         `${variable?.STOCK_MANAGEMENT_API_URL}/api/v1/stock`,
         { params, headers: { Authorization: token } }
@@ -93,14 +78,18 @@ const CustomerList = ({ customers }) => {
     }
   }
 
+  useEffect(() => {
+    if (!Cookie.getItem("accessToken")) navigate("/");
+  }, []);
+
+  const debouncedHandleSearch = useCallback(debounce(getStock, 400), []);
+
+  useEffect(() => {
+    debouncedHandleSearch(params);
+  }, [params]);
+
   const handleSearchChange = (e) => {
     setParams({ ...params, search: e.target.value });
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      onSearch();
-    }
   };
 
   const columns = [
@@ -124,8 +113,13 @@ const CustomerList = ({ customers }) => {
           <Switch
             checkedChildren="Active"
             unCheckedChildren="Inactive"
-            checked={status === "Active"}
-            onClick={() => handleStatusToggle(customerData.id)}
+            checked={status}
+            onClick={() =>
+              handleStatusToggle(
+                customerData._id,
+                status ? "inactive" : "active"
+              )
+            }
           />
         </Space>
       ),
@@ -192,18 +186,25 @@ const CustomerList = ({ customers }) => {
     },
   ];
 
-  const handleStatusToggle = (id) => {
-    setCustomerData((prevCustomers) =>
-      prevCustomers.map((customer) => {
-        if (customer.id === id) {
-          const newStatus =
-            customer.status === "Active" ? "Inactive" : "Active";
-          alert(` ${newStatus}`);
-          return { ...customer, status: newStatus };
-        }
-        return customer;
-      })
-    );
+  const handleStatusToggle = async (id, status) => {
+    try {
+      const token = Cookie.getItem("accessToken");
+
+      const { data } = await axios.put(
+        `${variable?.STOCK_MANAGEMENT_API_URL}/api/v1/stock/${id}/${status}`,
+        id,
+        { headers: { Authorization: token } }
+      );
+
+      if (data?.stockinfo?._id) {
+        debouncedHandleSearch(params);
+      } else {
+        alert("Failed to update status");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("something went wrong");
+    }
   };
 
   return (
@@ -213,19 +214,24 @@ const CustomerList = ({ customers }) => {
           backgroundColor: "white",
           border: "1px solid lightgrey",
           borderRadius: "30px",
-          // padding: "2rem",
-          display: "row",
+          display: "flex",
+          flexDirection: "column",
+          // overflow: "scroll",
         }}
       >
         <div
           style={{
             margin: "1rem",
+            font: "1rem",
             display: "flex",
             justifyContent: "space-between",
+            // overflow: "hidden",
           }}
           className="customer-table-header"
         >
           <h3>Customer List</h3>
+          {/* {JSON.stringify(params)} */}
+
           <Input
             className="search-input"
             name="search"
@@ -234,7 +240,6 @@ const CustomerList = ({ customers }) => {
             type="text"
             value={params.search}
             onChange={handleSearchChange}
-            onKeyPress={handleKeyPress}
           />
         </div>
 
@@ -270,25 +275,28 @@ const CustomerList = ({ customers }) => {
           </Modal>
         </div>
 
-        <Table
-          columns={columns}
-          dataSource={customerData}
-          pagination={{
-            total: customerCount,
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <Table
+            columns={columns}
+            dataSource={customerData}
+            pagination={{
+              total: customerCount,
 
-            onChange: (page, limit) => {
-              alert(page + "  " + limit);
-              setParams({ ...params, page, limit });
-            },
+              onChange: (page, limit) => {
+                setParams({ ...params, page, limit });
+              },
 
-            pageSize: params.limit,
-            pageSizeOptions: [1, 10, 20, 30],
-          }}
-          style={{
-            width: "100%",
-            overflowX: "auto",
-          }}
-        />
+              pageSize: params.limit,
+              pageSizeOptions: [10, 20, 30],
+              showSizeChanger: true,
+            }}
+            style={{
+              width: "100%",
+              overflow: "auto",
+              tableLayout: "fixed",
+            }}
+          />
+        </div>
       </div>
     </Fragment>
   );
