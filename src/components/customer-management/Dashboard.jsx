@@ -7,18 +7,7 @@ import { Layout, Menu, Button } from "antd";
 
 // import { useMediaQuery } from "react-responsive";
 // import Icon from "@ant-design/icons";
-import {
-  LogoutOutlined,
-  FilterOutlined,
-  PieChartOutlined,
-  SlidersOutlined,
-  TeamOutlined,
-  ShopOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  LeftOutlined,
-  DashboardOutlined,
-} from "@ant-design/icons";
+import { TeamOutlined, LeftOutlined } from "@ant-design/icons";
 
 import logo from "../images/logo.svg";
 import CustomerStats from "./CustomerStats";
@@ -41,13 +30,41 @@ function CustomerManagement() {
   };
 
   return (
-    <div className="main">
-      <div className="main-header" style={{ overflow: "scroll" }}>
+    <div
+      className="main"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        backgroundSize: "cover",
+        height: "100vh",
+        width: "100vw",
+        // overflow: "hidden",
+      }}
+    >
+      <div
+        className="main-header"
+        style={{
+          // position: "fixed",
+          overflow: "auto",
+          overflowX: "hidden",
+          // overflowY: "hidden",
+          display: "flex",
+          flexDirection: "column",
+          height: "100vh",
+          margin: "20px",
+          border: "1px solid lightGray",
+          borderRadius: "10px",
+          background: " #f7f7f7",
+          // width: "100vw",
+        }}
+      >
         <div
           style={{
             padding: "1rem",
             borderBottom: "1px solid lightgray",
             width: "100%",
+
+            // overflow: "hidden",
           }}
         >
           <h2>
@@ -66,9 +83,9 @@ function CustomerManagement() {
         <div />
         <div className="right-panel">
           <CustomerStats />
-          <div className="customer-table">
-            <CustomerList />
-          </div>
+        </div>
+        <div className="customer-table">
+          <CustomerList />
         </div>
       </div>
     </div>

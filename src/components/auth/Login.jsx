@@ -2,18 +2,38 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import logo from "../images/logo.svg";
+import axios from "axios";
+import variable from "../../assets/variables";
+import Cookies from "js-cookies";
 
 function Login() {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
 
-  function login(e) {
+  async function login(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const formProps = Object.fromEntries(formData);
-    console.log(formProps);
-    alert("login success");
-    navigate("/dashboard", { state: { oko: "oijikbjhikjn" } });
+    const { email, password } = Object.fromEntries(formData);
+
+    // console.log(formProps);
+    // alert("login success");
+    // navigate("/dashboard", { state: { oko: "oijikbjhikjn" } });
+    try {
+      const { data } = await axios.post(
+        `${variable?.STOCK_MANAGEMENT_API_URL}/api/v1/auth/login`,
+        { email, password }
+      );
+
+      if (data?.token) {
+        Cookies.setItem("accessToken", data?.token, { expires: "7d" });
+        window.location.href = "http://localhost:5173/dashboard";
+      } else {
+        alert("Invalid credentials");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Invalid credentials.");
+    }
   }
 
   return (
@@ -38,9 +58,10 @@ function Login() {
           <form onSubmit={login}>
             <div className="login-flex-start-col input-container-1">
               <input
+                autoComplete="off"
                 name="email"
                 required
-                autoComplete={"true"}
+                // autoComplete={"true"}
                 placeholder="Email"
                 type="email"
                 value={loginData.email}
@@ -52,9 +73,10 @@ function Login() {
 
             <div className="login-flex-start-col input-container-2">
               <input
+                autoComplete="off"
                 name="password"
                 required
-                autoComplete={"true"}
+                // autoComplete={"true"}
                 placeholder="Password"
                 type="password"
                 value={loginData.password}
@@ -68,7 +90,7 @@ function Login() {
                 <a href="/signup">Create Account</a> {""}
               </div>
               <div className="login-forgot-password">
-                <a href="/forgotPassword">Forgot Password?</a>
+                <a href="/forgot-password">Forgot Password?</a>
               </div>
             </div>
 

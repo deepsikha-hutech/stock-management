@@ -4,7 +4,15 @@ import LeftSider from "../common/LeftSider";
 
 function MasterLayout() {
   return (
-    <div style={{ display: "flex", flexDirection: "row" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        backgroundSize: "flex",
+        width: "100%",
+        height: "100%",
+      }}
+    >
       <LeftSider />
       <Outlet />
     </div>
