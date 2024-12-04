@@ -1,107 +1,4 @@
 
-/* 
-.root{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100%;
-    background-color: aliceblue;
-    background-size: cover;
-} */
-
-/* .main{
-    background-color:aliceblue;
-    background-size: flex;
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    height:100vh;
-    width :100vw;
-
-} */
-
-
-
- 
-.sidebar-panel-img {
-    
-   
-    justify-content: left;
-    width:40%;
-    height: auto;
-    display: flex;
-   
-  }
-  .sidebar-panel-img img {
-    width: 30%;
-    height: auto;
-    /* display: flex; */
-  }
-  
-
-   
-.sidebar-panel {
-  width: 220px;
-  background-color: aliceblue;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  overflow: hidden;
-}
-
-.sidebar-panel-img {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.sidebar-panel-img img {
-  width: 30px;
-  height: auto;
-  margin-right: 10px;
-}
-
-.sidebar-panel-img h5 {
-  font-size: 15px;
-  font-weight: bold;
-  color: #333;
-  margin: 0;
-  white-space: nowrap; 
-}
-
-.ant-menu {
-  background-color: transparent;
-  border-right: none;
-}
-
-.ant-menu-item {
-  font-size: 15px;
-  color: #333;
-  display: flex;
-  align-items: center;
-  transition: background-color 0.3s ease;
-  padding: 10px 15px;
-  border-radius: 8px;
-  white-space: nowrap; 
-}
-
-.ant-menu-item:hover {
-  background-color: #e6f7ff;
-}
-
-.ant-menu-item-selected {
-  background-color: #e6f7ff;
-  color: #1890ff;
-}
-
-.ant-menu-item-icon {
-  font-size: 18px;
-  margin-right: 10px;
-}
-
 .logout-button {
   margin-top: auto;
   display: flex;
@@ -114,10 +11,6 @@
   border: none;
   cursor: pointer;
   transition: color 0.3s ease;
-}
-
-.logout-button:hover {
-  color: #1890ff;
 }
 
 
@@ -139,24 +32,7 @@
   background-color: #f0f0f0;
 }
 
-:where(.css-dev-only-do-not-override-ni1kz0).ant-layout, :where(.css-dev-only-do-not-override-ni1kz0).ant-layout * {
-  box-sizing: content-box;
-}
 
-:where(.css-dev-only-do-not-override-ni1kz0).ant-menu-inline .ant-menu-item, :where(.css-dev-only-do-not-override-ni1kz0).ant-menu-vertical .ant-menu-item, :where(.css-dev-only-do-not-override-ni1kz0).ant-menu-inline .ant-menu-submenu-title, :where(.css-dev-only-do-not-override-ni1kz0).ant-menu-vertical .ant-menu-submenu-title {
-  height: 40px;
-  line-height: 40px;
-  padding-inline: 16px;
-  overflow: hidden;
-  margin-inline: 4px;
-  margin-block: 4px;
-  width: calc(100% - 8px);
-}
-
-:where(.css-dev-only-do-not-override-ni1kz0)[class^="ant-menu"] [class^="ant-menu"], :where(.css-dev-only-do-not-override-ni1kz0)[class*=" ant-menu"] [class^="ant-menu"], :where(.css-dev-only-do-not-override-ni1kz0)[class^="ant-menu"] [class*=" ant-menu"], :where(.css-dev-only-do-not-override-ni1kz0)[class*=" ant-menu"] [class*=" ant-menu"] {
-    overflow: hidden;
-    box-sizing: content-box;
-}
   .right-panel {
     width: 100%;
     height: 100%;
@@ -167,7 +43,6 @@
     justify-content: space-between;
     align-content: flex-start;
     padding: 5px;
-    /* background-color: aliceblue; */
     background: transparent;
     flex-direction: column;
 
