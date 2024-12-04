@@ -225,12 +225,10 @@ const CustomerList = ({ customers }) => {
             font: "1rem",
             display: "flex",
             justifyContent: "space-between",
-            // overflow: "hidden",
           }}
           className="customer-table-header"
         >
           <h3>Customer List</h3>
-          {/* {JSON.stringify(params)} */}
 
           <Input
             className="search-input"
@@ -281,7 +279,6 @@ const CustomerList = ({ customers }) => {
             dataSource={customerData}
             pagination={{
               total: customerCount,
-
               onChange: (page, limit) => {
                 setParams({ ...params, page, limit });
               },
@@ -293,7 +290,7 @@ const CustomerList = ({ customers }) => {
             style={{
               width: "100%",
               overflow: "auto",
-              tableLayout: "fixed",
+              // tableLayout: "fixed",
             }}
           />
         </div>
